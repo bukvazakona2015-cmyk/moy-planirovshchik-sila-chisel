@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#146b50">
+  <title>Сила+ чисел — планировщик</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="scr.js" defer></script>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <a class="brand" href="#home"><span class="mark" aria-hidden="true"><i></i><b></b><i></i></span><span><strong>Сила+ чисел</strong><small>личный планировщик</small></span></a>
+      <nav aria-label="Разделы">
+        <button class="nav active" data-view="home"><span>⌂</span>Главная</button>
+        <button class="nav" data-view="contacts"><span>♙</span>Контакты <small id="contact-count">0</small></button>
+        <button class="nav" data-view="calendar"><span>▦</span>Календарь</button>
+        <button class="nav" data-view="settings"><span>⚙</span>Настройки</button>
+      </nav>
+      <div class="local-note"><i></i>Данные хранятся в этом браузере</div>
+      <div class="slogan">Баланс в делах —<br>покой в душе</div>
+    </aside>
+
+    <main>
+      <header class="topbar"><div class="mobile-brand"><span class="mark mini"><i></i><b></b><i></i></span><strong>Сила+ чисел</strong></div><span id="top-date"></span><button class="primary" id="new-task">＋ Новая задача</button></header>
+
+      <section class="view active" id="view-home">
+        <div class="welcome"><div><p class="eyebrow">Ваш рабочий день</p><h1 id="greeting">Доброе утро!</h1><p class="muted">Держите важное под рукой и двигайтесь в своём ритме.</p></div><div class="today-box"><span>Сегодня</span><strong id="today-date"></strong><small id="today-name"></small></div></div>
+        <section class="week panel"><div class="panel-head"><div><h2>Эта неделя</h2><small id="week-range"></small></div><button class="outline" id="go-today">Сегодня</button></div><div class="week-grid" id="week"></div></section>
+        <div class="dash-grid">
+          <section class="panel"><div class="panel-head"><div><small>На выбранный день</small><h2 id="calls-title">Звонки сегодня</h2></div><button class="plus" id="add-call" aria-label="Добавить звонок">＋</button></div><div class="list" id="calls"></div></section>
+          <section class="panel"><div class="panel-head"><div><small>Ближайшие встречи</small><h2>Консультации</h2></div><button class="plus" id="add-consult" aria-label="Добавить консультацию">＋</button></div><div class="list" id="consultations"></div></section>
+          <section class="panel wide"><div class="panel-head"><div><small>Не пропустите</small><h2>Сроки отчетности</h2></div><button class="link" data-go="calendar">Весь календарь →</button></div><div class="list" id="reports-home"></div></section>
+        </div>
+        <section class="panel"><div class="panel-head"><div><small>План на день</small><h2 id="tasks-title">Задачи на сегодня</h2></div><button class="plus" id="add-day-task" aria-label="Добавить задачу">＋</button></div><div class="list" id="tasks-day"></div></section>
+      </section>
+
+      <section class="view" id="view-contacts">
+        <div class="page-head"><div><p class="eyebrow">Клиентская база</p><h1>Контакты</h1><p class="muted">Контактные лица и даты следующих звонков.</p></div><button class="primary" id="add-contact">＋ Добавить контакт</button></div>
+        <div class="searchline"><input id="search" type="search" placeholder="Поиск по имени, телефону или организации"><small id="contact-total"></small></div><div class="contact-grid" id="contact-cards"></div>
+      </section>
+
+      <section class="view" id="view-calendar">
+        <div class="page-head"><div><p class="eyebrow">Планирование</p><h1>Календарь</h1><p class="muted">Задачи, консультации и общие сроки отчетности.</p></div><button class="primary" id="add-report">＋ Добавить событие</button></div>
+        <p class="calendar-note">Сроки рассчитаны по общим правилам. Сверяйте их с актуальным календарем ФНС и вручную уточняйте праздничные переносы и специальные сроки.</p>
+        <section class="panel calendar-panel"><div class="panel-head"><div class="month-nav"><button class="outline" id="prev-month" aria-label="Предыдущий месяц">‹</button><button class="outline" id="next-month" aria-label="Следующий месяц">›</button><h2 id="month-label"></h2></div><button class="link" id="current-month">Текущий месяц</button></div><div class="calendar" id="calendar"></div><div class="legend"><span><i class="dot task-dot"></i>Задачи</span><span><i class="dot consult-dot"></i>Консультации</span><span><i class="dot report-dot"></i>Отчетность</span></div></section>
+        <section class="panel"><div class="panel-head"><div><small>События даты</small><h2 id="date-events-title"></h2></div><button class="plus" id="add-date-event" aria-label="Добавить событие на дату">＋</button></div><div class="list" id="date-events"></div></section>
+      </section>
+
+      <section class="view" id="view-settings">
+        <div class="page-head"><div><p class="eyebrow">Ваши данные</p><h1>Настройки</h1><p class="muted">Резервная копия и уведомления.</p></div></div>
+        <div class="settings-grid">
+          <section class="panel setting"><div class="setting-icon">↕</div><h2>Резервная копия</h2><p>Экспортируйте базу в JSON или импортируйте копию из файла.</p><div class="actions"><button class="primary" id="export">Скачать копию</button><button class="outline" id="import">Импортировать</button><input id="file" type="file" accept="application/json,.json" hidden></div></section>
+          <section class="panel setting"><div class="setting-icon">◉</div><h2>Уведомления о сроках</h2><p>Напоминания за 3 дня и в день срока. При закрытой странице браузер может не доставить уведомление.</p><div class="notify-row"><span id="notify-status">Разрешение не запрошено</span><button class="outline" id="enable-notify">Включить</button></div><small class="muted">Надежная фоновая доставка требует отдельного сервиса.</small></section>
+          <section class="panel setting full"><div class="setting-icon">▣</div><h2>Локальное хранение</h2><p>Записи доступны только в этом браузере на этом устройстве. Очистка данных браузера удалит их. Сохраняйте резервную копию.</p><div class="saved"><i></i>Сохранение в браузере включено</div></section>
+        </div>
+      </section>
+      <footer><span>Сила+ чисел</span><span>Планируйте спокойно</span></footer>
+    </main>
+  </div>
+
+  <dialog id="dialog"><form id="form" method="dialog"><div class="dialog-head"><div><p class="eyebrow" id="dialog-kicker">Новая запись</p><h2 id="dialog-title">Создать</h2></div><button class="outline close" type="button" aria-label="Закрыть">×</button></div><div class="fields" id="fields"></div><p class="error" id="error" role="alert"></p><div class="dialog-actions"><button class="outline close" type="button">Отмена</button><button class="primary" type="submit">Сохранить</button></div></form></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
+
